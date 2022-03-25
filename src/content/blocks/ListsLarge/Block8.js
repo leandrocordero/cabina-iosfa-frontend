@@ -6,7 +6,6 @@ import {
  } from '@mui/material';
 
 import { useTranslation } from 'react-i18next';
-import { Maps } from 'src/content/dashboards/Reports/Maps';
 
 
 function Block8() {
@@ -37,7 +36,7 @@ function Block8() {
           <Typography variant="h4">{t('Users Analytics')}</Typography>
         </Box>
       </Box>
-      <Maps />
+      <h1>mapa</h1>
     </Card>
   );
 }

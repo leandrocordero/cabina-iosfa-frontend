@@ -45,7 +45,7 @@ const LinearProgressError = styled(LinearProgress)(
     `
 );
 
-function Block5() {
+function Block5(props) {
   const { t } = useTranslation();
   const theme = useTheme();
 
@@ -67,10 +67,10 @@ function Block5() {
           >
             <Box>
               <Typography color="text.primary" variant="h4" gutterBottom>
-                {t('Deliveries')}
+                {t('Grupo Ayuda Médica')}
               </Typography>
               <Typography variant="subtitle2" noWrap>
-                {t('Total deliveries to date')}
+                {t('Servicios finalizados')}
               </Typography>
             </Box>
             <Typography
@@ -79,10 +79,10 @@ function Block5() {
                 color: `${theme.colors.error.main}`
               }}
             >
-              23,594
+              { props.servGam }
             </Typography>
           </Box>
-          <LinearProgressError variant="determinate" value={66.43} />
+          <LinearProgressError variant="determinate" value={props.servGam / (props.servGam + props.servVittal)*100} />
           <Box
             display="flex"
             sx={{
@@ -97,7 +97,7 @@ function Block5() {
               }}
               variant="subtitle2"
             >
-              {t('Target')}
+              {t('Porcentaje de Participación')}
             </Typography>
             <Typography
               sx={{
@@ -105,7 +105,7 @@ function Block5() {
               }}
               variant="subtitle2"
             >
-              100%
+              { props.servGam / (props.servGam + props.servVittal)*100 }%
             </Typography>
           </Box>
         </Box>
@@ -118,10 +118,10 @@ function Block5() {
           >
             <Box>
               <Typography color="text.primary" variant="h4" gutterBottom>
-                {t('Orders')}
+                {t('Vittal')}
               </Typography>
               <Typography variant="subtitle2" noWrap>
-                {t('Total orders to date')}
+                {t('Servicios finalizados')}
               </Typography>
             </Box>
             <Typography
@@ -130,10 +130,11 @@ function Block5() {
                 color: `${theme.colors.error.main}`
               }}
             >
-              $12,346
+              
+              { props.servVittal }
             </Typography>
           </Box>
-          <LinearProgressPrimary variant="determinate" value={44.32} />
+          <LinearProgressPrimary variant="determinate" value={ props.servVittal / (props.servGam + props.servVittal) *100 } />
           <Box
             display="flex"
             sx={{
@@ -148,7 +149,7 @@ function Block5() {
               }}
               variant="subtitle2"
             >
-              {t('Target')}
+              {t('Porcentaje de Participación')}
             </Typography>
             <Typography
               sx={{
@@ -156,7 +157,7 @@ function Block5() {
               }}
               variant="subtitle2"
             >
-              100%
+              { props.servVittal / (props.servGam + props.servVittal) *100 }%
             </Typography>
           </Box>
         </Box>

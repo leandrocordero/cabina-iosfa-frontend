@@ -29,6 +29,7 @@ const AvatarWrapper = styled(Avatar)(
 function Block3(props) {
   const { t } = useTranslation();
   const theme = useTheme();
+  
 
   return (
     <Grid container spacing={4}>

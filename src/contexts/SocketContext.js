@@ -31,7 +31,6 @@ export const SocketProvider = ({ children }) => {
 
       useEffect(() => {
         socket?.on('nuevo-registro-cargado',(registro)=>{
-            console.log(registro);
             logged.newService = registro           
         })
     }, [ socket ])

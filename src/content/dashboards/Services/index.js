@@ -15,7 +15,7 @@ function ServiceReports() {
 
   const getServicios = useCallback(async () => {
     try {
-      const response = await fechtConjwt('services/getServices');
+      const response = await fechtConjwt('services/getServices',{fechaMin: new Date("2020-01-01"), fechaMax: new Date("2022-03-28")},'POST');
       const servicios = await response.json();
       if (isMountedRef.current) {
         setServicios(servicios.servicios);
