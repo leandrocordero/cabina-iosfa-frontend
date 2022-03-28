@@ -1,6 +1,7 @@
 import useRefMounted from 'src/hooks/useRefMounted';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useContext, useEffect, useState } from 'react';
 import { fechtConjwt } from 'src/helpers/fetch';
+import { SocketContext } from 'src/contexts/SocketContext';
 import Footer from 'src/components/Footer';
 import PageTitleWrapper from 'src/components/PageTitleWrapper';
 import { Helmet } from 'react-helmet-async';
@@ -8,14 +9,15 @@ import { Grid } from '@mui/material';
 import PageHeader from './PageHeader';
 import Results from './Results';
 
-function ServiceReports() {
 
+function ServiceReports() {
+  const { socket } = useContext(SocketContext);
   const isMountedRef = useRefMounted();
   const [servicios, setServicios] = useState([]);
 
   const getServicios = useCallback(async () => {
     try {
-      const response = await fechtConjwt('services/getServices',{fechaMin: new Date("2020-01-01"), fechaMax: new Date("2022-03-28")},'POST');
+      const response = await fechtConjwt('services/getServices',{fechaMin: new Date("2020-01-01"), fechaMax: new Date(Date.now())},'POST');
       const servicios = await response.json();
       if (isMountedRef.current) {
         setServicios(servicios.servicios);
@@ -28,6 +30,17 @@ function ServiceReports() {
   useEffect(() => {
     getServicios();
   }, [getServicios]);
+
+  useEffect(() => {
+        
+    socket.on('nuevo-registro-cargado', () => {
+      
+      getServicios();
+        
+      });
+      
+      return () => socket.off('nuevo-registro-cargado');
+}, [ socket ])
 
 
 

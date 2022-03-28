@@ -21,9 +21,9 @@ ReactDOM.render(
         <BrowserRouter>
           <ScrollTop />
           <AuthProvider>
-          <SocketProvider>
-            <App />
-          </SocketProvider>
+            <SocketProvider>
+             <App />
+            </SocketProvider>
           </AuthProvider>
         </BrowserRouter>
       </SidebarProvider>

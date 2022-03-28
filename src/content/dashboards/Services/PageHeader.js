@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useContext, useRef, useState } from 'react';
 import {
   Typography,
   Button,
@@ -14,6 +14,7 @@ import { useTranslation } from 'react-i18next';
 import DocumentScannerTwoToneIcon from '@mui/icons-material/DocumentScannerTwoTone';
 import KeyboardArrowDownTwoToneIcon from '@mui/icons-material/KeyboardArrowDownTwoTone';
 import AddAlertTwoToneIcon from '@mui/icons-material/AddAlertTwoTone';
+import { SocketContext } from 'src/contexts/SocketContext';
 
 const AvatarPageTitle = styled(Avatar)(
   ({ theme }) => `
@@ -42,6 +43,7 @@ const AvatarPageTitle = styled(Avatar)(
 
 function PageHeader() {
   const { t } = useTranslation();
+  const { reportsDates } = useContext(SocketContext);
 
   const periods = [
     {
@@ -63,8 +65,13 @@ function PageHeader() {
   ];
 
   const [openPeriod, setOpenMenuPeriod] = useState(false);
-  const [period, setPeriod] = useState(periods[3].text);
+  const [period, setPeriod] = useState(periods[reportsDates.optionValue].text);
   const actionRef1 = useRef(null);
+
+  const updatePeriod = (period)=>{
+    setPeriod(period)
+    console.log(period)
+  }
 
   return (
     <Box
@@ -116,7 +123,7 @@ function PageHeader() {
             <MenuItem
               key={_period.value}
               onClick={() => {
-                setPeriod(_period.text);
+                updatePeriod(_period.value);
                 setOpenMenuPeriod(false);
               }}
             >

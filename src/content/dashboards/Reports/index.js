@@ -24,13 +24,13 @@ function DashboardReports() {
   const [serviciosGAM, setServiciosGAM] = useState(0);
   const [serviciosVittal, setServiciosVittal] = useState(0);
 
-  const { socket } = useContext(SocketContext);
+  const { socket, reportsDates } = useContext(SocketContext);
   const { user } = useContext(AuthContext);
   
   const getServicios = useCallback(async () => {
     
     try {
-      const response = await fechtConjwt('services/getServices',{fechaMin: new Date("2020-01-18"), fechaMax: new Date("2022-03-28")},'POST');
+      const response = await fechtConjwt('services/getServices',{fechaMin: reportsDates.startDate, fechaMax: reportsDates.endDate },'POST');
       const serviciosResp = await response.json();
       
 
@@ -44,9 +44,6 @@ function DashboardReports() {
         const servGam = serviciosResp.servicios.filter((servicio)=> servicio.empresa === 'GRUPO AYUDA MEDICA' && (servicio.estado === 'Finalizado Presencial' || servicio.estado === 'Finalizado Teleasistencia')).length;     
         const servVittal = serviciosResp.servicios.filter((servicio)=> servicio.empresa === 'VITTAL' && (servicio.estado === 'Finalizado Presencial' || servicio.estado === 'Finalizado Teleasistencia')).length;
         
-
-        console.log("Servicios Vittal: ", servVittal);
-        console.log("Servicios GAM: ", servGam);
           setServiciosTotales(serviciosTotalesEmp);
           setEnCurso(serviciosEnCurso);
           setFpresencial(serviciosFinalizadosPres);
