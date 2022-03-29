@@ -1,4 +1,5 @@
 import { useContext, useRef, useState } from 'react';
+import moment from 'moment';
 import {
   Typography,
   Button,
@@ -15,6 +16,10 @@ import DocumentScannerTwoToneIcon from '@mui/icons-material/DocumentScannerTwoTo
 import KeyboardArrowDownTwoToneIcon from '@mui/icons-material/KeyboardArrowDownTwoTone';
 import AddAlertTwoToneIcon from '@mui/icons-material/AddAlertTwoTone';
 import { SocketContext } from 'src/contexts/SocketContext';
+import { fechtConjwt } from 'src/helpers/fetch';
+
+const xlsx = require("json-as-xlsx")
+
 
 const AvatarPageTitle = styled(Avatar)(
   ({ theme }) => `
@@ -43,34 +48,69 @@ const AvatarPageTitle = styled(Avatar)(
 
 function PageHeader() {
   const { t } = useTranslation();
-  const { reportsDates } = useContext(SocketContext);
+  const { setStartDate, reportsDates } = useContext(SocketContext);
+    
+  const getServicios = async () => {
+    try {
+      const response = await fechtConjwt('services/getServices',{fechaMin: reportsDates.startDate, fechaMax: reportsDates.endDate},'POST');
+      const servicios = await response.json();
+      console.log(servicios)
+        let data = [
+          {
+            sheet: "Servicios",
+            columns: [
+              { label: "Id", value: "_id" },
+              { label: "Estado", value: "estado" },
+              { label: "Color", value: "color" },
+              { label: "Nombre", value: "nombre" },
+              { label: "Dni", value: "dni" },
+              { label: "Localidad", value: "localidad" },
+              { label: "Diagenostico", value: "diagnostico" },
+              { label: "Empresa", value: "empresa" },              
+            ],
+            content: servicios.servicios,
+          },
+        ]
+        
+        let settings = {
+          fileName: "Servicios", // Name of the resulting spreadsheet
+          extraLength: 3, // A bigger number means that columns will be wider
+          writeOptions: {}, // Style options from https://github.com/SheetJS/sheetjs#writing-options
+        }
+        
+        xlsx(data, settings) 
 
-  const periods = [
+      } catch (err) {
+      console.error(err);
+    }}
+    
+    const periods = [
     {
       value: 'today',
-      text: t('Hoy')
+      text: t('Últimas 24 hs')
     },
     {
-      value: 'yesterday',
-      text: t('Ayer')
+      value: 'week',
+      text: t('Última Semana')
     },
     {
-      value: 'last_month',
+      value: 'month',
       text: t('Último Mes')
     },
     {
-      value: 'last_year',
+      value: 'year',
       text: t('Último Año')
     }
   ];
 
+  
   const [openPeriod, setOpenMenuPeriod] = useState(false);
-  const [period, setPeriod] = useState(periods[reportsDates.optionValue].text);
+  const [period, setPeriod] = useState(periods[3].text);
   const actionRef1 = useRef(null);
 
-  const updatePeriod = (period)=>{
-    setPeriod(period)
-    console.log(period)
+  const updateStarDate = (period)=>{
+    
+    setStartDate(moment().subtract(1,period).format())
   }
 
   return (
@@ -105,7 +145,8 @@ function PageHeader() {
         >
           {period}
         </Button>
-        <Menu
+
+       <Menu
           disableScrollLock
           anchorEl={actionRef1.current}
           onClose={() => setOpenMenuPeriod(false)}
@@ -123,16 +164,18 @@ function PageHeader() {
             <MenuItem
               key={_period.value}
               onClick={() => {
-                updatePeriod(_period.value);
+                setPeriod(_period.text);
                 setOpenMenuPeriod(false);
+                updateStarDate(_period.value);
               }}
+              
             >
               {_period.text}
             </MenuItem>
           ))}
         </Menu>
 
-        <Button variant="contained" startIcon={<DocumentScannerTwoToneIcon />}>
+        <Button variant="contained" startIcon={<DocumentScannerTwoToneIcon />} onClick={()=>{getServicios()}}>
           {t('Exportar')}
         </Button>
       </Box>

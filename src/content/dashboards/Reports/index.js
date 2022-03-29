@@ -56,11 +56,16 @@ function DashboardReports() {
     } catch (err) {
       console.error(err);
     }
-  }, [isMountedRef]);
+  }, [isMountedRef, reportsDates]);
 
   useEffect(() => {
     getServicios();
   }, [ getServicios, isMountedRef ]);
+
+  useEffect(() => {
+   getServicios();
+  }, [ reportsDates ]);
+
 
   useEffect(() => {
         

@@ -11,13 +11,13 @@ import Results from './Results';
 
 
 function ServiceReports() {
-  const { socket } = useContext(SocketContext);
+  const { socket, reportsDates } = useContext(SocketContext);
   const isMountedRef = useRefMounted();
   const [servicios, setServicios] = useState([]);
 
   const getServicios = useCallback(async () => {
     try {
-      const response = await fechtConjwt('services/getServices',{fechaMin: new Date("2020-01-01"), fechaMax: new Date(Date.now())},'POST');
+      const response = await fechtConjwt('services/getServices',{fechaMin: reportsDates.startDate, fechaMax: reportsDates.endDate},'POST');
       const servicios = await response.json();
       if (isMountedRef.current) {
         setServicios(servicios.servicios);
@@ -25,11 +25,16 @@ function ServiceReports() {
     } catch (err) {
       console.error(err);
     }
-  }, [isMountedRef]);
+  }, [isMountedRef, reportsDates]);
 
   useEffect(() => {
     getServicios();
   }, [getServicios]);
+
+  useEffect(() => {
+    getServicios();
+   }, [ reportsDates ]);
+ 
 
   useEffect(() => {
         

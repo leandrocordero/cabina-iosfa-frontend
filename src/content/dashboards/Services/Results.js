@@ -49,7 +49,7 @@ const applyFilters = (servicios, query, filters) => {
     let matches = true;
 
     if (query) {
-      const properties = ['estado', 'color', 'dni', 'empresa'];
+      const properties = ['estado', 'color', 'dni', 'empresa', 'nombre'];
       let containsQuery = false;
 
       properties.forEach((property) => {
@@ -179,7 +179,7 @@ const Results = ({ servicios }) => {
                   )
                 }}
                 onChange={handleQueryChange}
-                placeholder={t('Busqueda por estado, nombre, dni o empresa....')}
+                placeholder={t('Busqueda por estado, color, nombre, dni o empresa....')}
                 value={query}
                 size="small"
                 fullWidth
