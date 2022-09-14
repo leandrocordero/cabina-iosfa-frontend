@@ -58,7 +58,7 @@ function Block3(props) {
               variant="subtitle2"
               component="div"
             >
-              {t('Tomados')}
+              {t('Basico')}
             </Typography>
           </Box>
           <Box
@@ -83,7 +83,7 @@ function Block3(props) {
               }}
               variant="h1"
             >
-              {props.serviciosTotales}
+              {props.basico}
             </Typography>
           </Box>
           <Typography
@@ -122,7 +122,7 @@ function Block3(props) {
               variant="subtitle2"
               component="div"
             >
-              {t('En curso')}
+              {t('Método')}
             </Typography>
           </Box>
           <Box
@@ -147,7 +147,7 @@ function Block3(props) {
               }}
               variant="h1"
             >
-              {props.enCurso}
+              {props.metodo}
             </Typography>
           </Box>
           <Typography
@@ -186,7 +186,7 @@ function Block3(props) {
               variant="subtitle2"
               component="div"
             >
-              {t('Finalizados Presencial')}
+              {t('Odontología')}
             </Typography>
           </Box>
           <Box
@@ -211,7 +211,7 @@ function Block3(props) {
               }}
               variant="h1"
             >
-              { props.presencial }
+              { props.odonto }
             </Typography>
           </Box>
           <Typography
@@ -250,7 +250,7 @@ function Block3(props) {
               variant="subtitle2"
               component="div"
             >
-              {t('Finalizados Teleasistencia')}
+              {t('Universal')}
             </Typography>
           </Box>
           <Box
@@ -275,7 +275,7 @@ function Block3(props) {
               }}
               variant="h1"
             >
-              { props.teleasistencia }
+              { props.universal }
             </Typography>
           </Box>
           <Typography

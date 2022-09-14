@@ -133,7 +133,7 @@ const navigate = useNavigate();
 
 const login = async (email, password) => {
      
-const response = await fetch('http://localhost:4000/api/auth',{
+const response = await fetch('http://192.168.3.59:4000/api/auth',{
   method: 'POST',
   headers:{'Accept': 'application/json',
   'Content-Type': 'application/json'},
@@ -179,7 +179,7 @@ const response = await fetch('http://localhost:4000/api/auth',{
 
   try {
   
-  const response = await fetch('http://localhost:4000/api/auth/new',{
+  const response = await fetch('http://192.168.3.59:4000/api/auth/new',{
   method: 'POST',
   headers:{'Accept': 'application/json',
   'Content-Type': 'application/json'},

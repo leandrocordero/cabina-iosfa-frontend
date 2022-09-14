@@ -1,5 +1,5 @@
 
-const baseURL = "http://localhost:4000/api";
+const baseURL = "http://192.168.3.140:60675/indicadores";
 
 const fechtSinjwt = (endpoint, data, method = 'GET')=>{
 

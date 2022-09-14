@@ -19,6 +19,14 @@ const Analytics = Loader(
   lazy(() => import('src/content/dashboards/Analytics'))
 );
 const Reports = Loader(lazy(() => import('src/content/dashboards/Reports')));
+const Direccion = Loader(lazy(() => import('src/content/dashboards/Direccion')));
+const Calidad = Loader(lazy(() => import('src/content/dashboards/Calidad')));
+const Cabina = Loader(lazy(() => import('src/content/dashboards/Cabina')));
+const Cobranzas = Loader(lazy(() => import('src/content/dashboards/Cobranzas')));
+const Facturacion = Loader(lazy(() => import('src/content/dashboards/Facturacion')));
+const Operativa = Loader(lazy(() => import('src/content/dashboards/Operativa')));
+const Rrhh = Loader(lazy(() => import('src/content/dashboards/Rrhh')));
+const Ventas = Loader(lazy(()=> import('src/content/dashboards/Ventas')))
 const Banking = Loader(lazy(() => import('src/content/dashboards/Banking')));
 const Commerce = Loader(lazy(() => import('src/content/dashboards/Commerce')));
 const Expenses = Loader(lazy(() => import('src/content/dashboards/Expenses')));
@@ -46,7 +54,7 @@ const Tasks = Loader(lazy(() => import('src/content/dashboards/Tasks')));
 const dashboardsRoutes = [
   {
     path: '/',
-    element: <Navigate to="reports" replace />
+    element: <Navigate to="commerce" replace />
   },
   {
     path: 'automation',
@@ -63,6 +71,38 @@ const dashboardsRoutes = [
   {
     path: 'banking',
     element: <Banking />
+  },
+  {
+    path: 'direccion',
+    element: <Direccion />
+  },
+  {
+    path: 'calidad',
+    element: <Calidad />
+  },
+  {
+    path: 'cabina',
+    element: <Cabina />
+  },
+  {
+    path: 'cobranzas',
+    element: <Cobranzas />
+  },
+  {
+    path: 'facturacion',
+    element: <Facturacion />
+  },
+  {
+    path: 'operativa',
+    element: <Operativa />
+  },
+  {
+    path: 'rrhh',
+    element: <Rrhh />
+  },
+  {
+    path: 'ventas',
+    element: <Ventas />
   },
   {
     path: 'commerce',

@@ -1,5 +1,4 @@
-import React, { useContext, useEffect, createContext, useState } from 'react';
-import moment from 'moment';
+import React, { useContext, useEffect, createContext } from 'react';
 import { useSocket } from '../hooks/useSocket'
 import AuthContext from './JWTAuthContext';
 
@@ -8,12 +7,9 @@ export const SocketContext = createContext();
 
 export const SocketProvider = ({ children }) => {
 
-    const { socket, online, conectarSocket, desconectarSocket } = useSocket('http://localhost:4000');
+    const { socket, online, conectarSocket, desconectarSocket } = useSocket('http://192.168.3.59:4000');
     const logged = useContext(AuthContext)
-    const [endDate] = useState(moment().format())
-    const [startDate, setStartDate] = useState(moment().subtract(1,'year').format())
-    
-
+   
         useEffect(() => {
         if(logged.isAuthenticated){
            conectarSocket()
@@ -38,15 +34,15 @@ export const SocketProvider = ({ children }) => {
         })
     }, [ socket ])
 
-     
-    
-    const reportsDates = {
-        startDate,
-        endDate
-    }
+    useEffect(() => {
+        socket?.on('nuevo-usuario-conectado',(usuario)=>{
+            console.log(usuario);         
+        })
+    }, [ socket ])
 
+    
     return (
-        <SocketContext.Provider value={{ socket, online, reportsDates, setStartDate }}>
+        <SocketContext.Provider value={{ socket, online}}>
             { children }
         </SocketContext.Provider>
     )
